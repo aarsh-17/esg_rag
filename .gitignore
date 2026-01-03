@@ -1,0 +1,40 @@
+# ---- Python cache ----
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# ---- Virtual environments ----
+rag_venv/
+venv/
+.env
+.env.*
+
+# ---- OS / editor junk ----
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# ---- Logs ----
+*.log
+
+# ---- Data & generated artifacts ----
+data/*
+!data/.gitkeep
+
+vectorstore/
+**/vectorstore/
+
+# ---- Model / embedding artifacts ----
+*.bin
+*.pt
+*.ckpt
+*.onnx
+
+# ---- PDFs & large raw inputs (optional but recommended) ----
+*.pdf
+
+# ---- Temporary files ----
+*.tmp
+*.swp
