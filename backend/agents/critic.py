@@ -1,30 +1,45 @@
-import backend.llm as llm
-def critic(state):
-    context = state.get("context", "")
-    answer = state.get("answer", "")
+from ..llm import llm
 
-    if not context.strip():
-        # No context = cannot verify grounding
-        state["grounded"] = False
-        return {**state, "grounded": False}
+def critic(state):
+    verdict = state.get("verdict", "")
+    context = state.get("context", "")
+    claim = state.get("query", "")
+    confidence = state.get("confidence", 0.0)
 
     prompt = f"""
-Does the ANSWER rely strictly on the CONTEXT below?
+You are evaluating potential greenwashing.
+
+Determine whether the CONTEXT provides substantive evidence that meaningfully supports the CLAIM.
+
+Substantive evidence means:
+- Concrete actions with measurable impact
+- Specific outcomes, results, or data
+- Clear elaboration beyond generic intention language
+
+If the context only repeats intention, ambition, or vague commitments without measurable support, respond NO.
 
 Respond only YES or NO.
 
+CLAIM:
+{claim}
+
 CONTEXT:
 {context}
-
-ANSWER:
-{answer}
 """
 
-    verdict = "yes" if answer.lower() in context.lower() else "no"
-   
+    response = llm.invoke(prompt).strip().upper()
+
+    grounded = response == "YES"
+    print(f"Critic response: {response} (grounded: {grounded})")
+
+    # Adjust confidence
+    if grounded:
+        confidence = round(confidence + 0.4, 3)
+    else:
+        confidence = round(confidence * 0.5, 3)
 
     return {
         **state,
-        "grounded": verdict == "yes"
+        "grounded": grounded,
+        "confidence": confidence
     }
-

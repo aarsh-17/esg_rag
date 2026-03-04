@@ -1,18 +1,11 @@
 from backend.graph import app
 
-if __name__ == "__main__":
-    result = app.invoke({
-        "query": "How many GPUs were used during training?"
-    })
+claim = "Shell achieved more than 60% of its target to halve Scope 1 and 2 emissions by 2030 compared with 2016 levels."
 
-    print("\nFINAL ANSWER:")
-    print(result["answer"])
-    print("result:\n", result["citations"])
-    print("\nSOURCES:")
+result = app.invoke({
+    "query": claim,
+})
 
-    best = min(result["citations"], key=lambda x: float(x["score"]))
-
-    print("\nMOST RELEVANT SOURCE:")
-    print(
-        f"- {best['source']} (page {best['page']}, score {float(best['score']):.3f})"
-    )
+print(result["verdict"])
+print(result["grounded"])
+print(result["citations"])

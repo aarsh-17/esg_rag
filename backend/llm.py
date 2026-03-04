@@ -2,7 +2,7 @@ import requests
 from langchain_core.runnables import RunnableLambda
 
 OLLAMA_URL = "http://localhost:11434/api/generate"
-MODEL_NAME = "qwen2.5:1.5b"
+MODEL_NAME = "mistral:latest"
 
 def local_llm(prompt: str) -> str:
     payload = {
@@ -10,7 +10,7 @@ def local_llm(prompt: str) -> str:
         "prompt": prompt,
         "stream": False,
         "options": {
-            "temperature": 0,
+            "temperature": 0.2,
             "num_predict": 128
         }
     }
