@@ -8,7 +8,7 @@ def verifier(state):
     similarity = state.get("top_similarity", 0.0)
     claim_type = state.get("claim_type", "general")
 
-    # 1️⃣ Similarity gate
+    
     if similarity < SIMILARITY_THRESHOLD:
         return {
             **state,
@@ -17,7 +17,7 @@ def verifier(state):
             "done": True
         }
 
-    # 2️⃣ Type-aware instruction
+    
     type_instruction = ""
 
     if claim_type == "quantitative":
@@ -76,7 +76,7 @@ CONTEXT:
 
     verdict = llm.invoke(prompt).strip().upper()
 
-    # 3️⃣ Confidence scaling
+   
     confidence = 0.6 * similarity
 
     if verdict == "SUPPORTED":

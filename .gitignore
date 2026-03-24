@@ -23,8 +23,7 @@ Thumbs.db
 data/*
 !data/.gitkeep
 
-vectorstore/
-**/vectorstore/
+
 
 # ---- Model / embedding artifacts ----
 *.bin

@@ -1,7 +1,9 @@
-import numpy as np
-from backend.embeddings import get_embeddings
+n = int(input())
 
-emb = get_embeddings()
+# Upper half
+for i in range(1, n+1):
+    print(" "*(n-i) + "* " * i)
 
-vec = emb.embed_query("We are also working to reduce the emissions intensity of our LNG projects.")
-print("Query vector norm:", np.linalg.norm(vec))
+# Lower half
+for i in range(n, 0, -1):
+    print(" "*(n-i) + "* " * i)
